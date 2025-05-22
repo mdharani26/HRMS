@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Login from './pages/Login';
@@ -12,6 +12,23 @@ import LandingPage from './pages/LandingPage';
 
 function App() {
   const [user, setUser] = useState(null);
+
+  // Load user from localStorage on app load
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  // Save user to localStorage on user change
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [user]);
 
   return (
     <Router>
@@ -30,7 +47,7 @@ function App() {
 
         {/* Admin Routes */}
         <Route path="/admin" element={
-          user?.role === 'admin' ? <AdminPanel user={user} /> : <Navigate to="/login" />
+          user?.role === 'admin' ? <AdminPanel user={user} setUser={setUser} /> : <Navigate to="/login" />
         } />
         <Route path="/admin/leaves" element={
           user?.role === 'admin' ? <ManageLeaves /> : <Navigate to="/login" />
@@ -38,7 +55,7 @@ function App() {
 
         {/* Employee Routes */}
         <Route path="/employee" element={
-          user?.role === 'employee' ? <EmployeePanel user={user} /> : <Navigate to="/login" />
+          user?.role === 'employee' ? <EmployeePanel user={user} setUser={setUser} /> : <Navigate to="/login" />
         } />
         <Route path="/leave/apply" element={
           user?.role === 'employee' ? (
