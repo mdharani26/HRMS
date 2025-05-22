@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import Login from './components/Login';
-import AdminPanel from './components/AdminPanel';
-import EmployeePanel from './components/EmployeePanel';
+import Login from './pages/Login';
+import AdminPanel from './pages/AdminPanel';
+import EmployeePanel from './pages/EmployeePanel';
 
-import ApplyLeave from './components/ApplyLeave';
-import LeaveStatus from './components/LeaveStatus';
-import ManageLeaves from './components/ManageLeaves';
-import LandingPage from './components/LandingPage';
+import ApplyLeave from './pages/ApplyLeave';
+import LeaveStatus from './pages/LeaveStatus';
+import ManageLeaves from './pages/ManageLeaves';
+import LandingPage from './pages/LandingPage';
 
 function App() {
   const [user, setUser] = useState(null);

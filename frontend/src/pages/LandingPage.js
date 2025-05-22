@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './LandingPage.css';
+import heropic from "../assets/hero.jpg";
 
 const LandingPage = () => {
   useEffect(() => {
@@ -26,12 +27,12 @@ const LandingPage = () => {
       {/* Navigation */}
       <nav className="navbar">
         <div className="container">
-          <h1 className="logo">HRMS</h1>
+          <h1 className="logo">ZenHR</h1>
           <div className="nav-links">
-            <Link to="#features">Features</Link>
-            <Link to="#about">About</Link>
-            <Link to="#jobs">Careers</Link>
-            <Link to="#contact">Contact</Link>
+            <a href='#features'>Features</a>
+            <a href='#about'>About</a>
+            <a href='#jobs'>Careers</a>
+            <a href='#contact'>Contact</a>
             <Link to="/login" className="btn-outline">Login</Link>
           </div>
         </div>
@@ -41,10 +42,9 @@ const LandingPage = () => {
       <header className="hero">
         <div className="container">
           <div className="hero-content fade-in">
-            <h1>Modern HR Management Simplified</h1>
+            <h1>People. Performance. Progress. </h1>
             <p className="subtitle">
-              Streamline your HR processes with our all-in-one solution designed for 
-              the modern workplace. Efficient, intuitive, and powerful.
+            From recruitment to retirement, simplify every stage of the employee journey with one powerful HRMS solution.
             </p>
             <div className="cta-buttons">
               <Link to="/login" className="btn-primary">Get Started</Link>
@@ -52,7 +52,10 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="hero-image slide-in-right">
-            <div className="image-placeholder"></div>
+            <div className="image-placeholder">
+              <img src={heropic} alt="Description of image" />
+
+            </div>
           </div>
         </div>
         <div className="wave-divider">
