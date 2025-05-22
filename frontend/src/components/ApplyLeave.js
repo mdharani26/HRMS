@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const ApplyLeave = ({ userId, userName }) => {
+const ApplyLeave = ({ userId, userName, onLeaveApplied }) => {
   const [reason, setReason] = useState('');
   const [days, setDays] = useState('');
 
   const applyLeave = async () => {
-    if (!reason || !days) {
-      alert("Please fill in both reason and number of days");
+    if (!reason.trim() || !days || Number(days) <= 0) {
+      alert("Please fill in a valid reason and number of days.");
       return;
     }
 
@@ -16,41 +16,48 @@ const ApplyLeave = ({ userId, userName }) => {
         employeeId: userId,
         employeeName: userName,
         reason,
-        numberOfDays: Number(days)
+        numberOfDays: Number(days),
       });
 
       if (res.data.success) {
-        alert('Leave Applied Successfully');
+        alert('Leave applied successfully.');
         setReason('');
         setDays('');
+        if (onLeaveApplied) onLeaveApplied();
       } else {
         alert('Failed to apply leave: ' + (res.data.message || 'Unknown error'));
       }
     } catch (err) {
       console.error("Leave apply error:", err.response?.data || err.message);
-      alert('Error applying leave');
+      alert('Error applying leave.');
     }
   };
 
   return (
-    <div>
-      <h2>Apply for Leave</h2>
-            <input
+    <div className="p-4 max-w-md mx-auto">
+      <h2 className="text-xl font-bold mb-4">Apply for Leave</h2>
+      <input
+        className="border p-2 mb-2 w-full"
         placeholder="Reason"
         value={reason}
-        onChange={(e) => setReason(e.target.value)}
+        onChange={e => setReason(e.target.value)}
       />
       <input
-        placeholder="No. of Days"
+        className="border p-2 mb-4 w-full"
+        placeholder="Number of Days"
         type="number"
-        value={days}
-        onChange={(e) => setDays(e.target.value)}
         min="1"
+        value={days}
+        onChange={e => setDays(e.target.value)}
       />
-      <button onClick={applyLeave}>Submit</button>
+      <button
+        className="bg-indigo-600 text-white px-4 py-2 rounded"
+        onClick={applyLeave}
+      >
+        Submit
+      </button>
     </div>
   );
 };
 
 export default ApplyLeave;
-
