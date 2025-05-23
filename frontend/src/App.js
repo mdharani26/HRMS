@@ -13,7 +13,6 @@ import LandingPage from './pages/LandingPage';
 function App() {
   const [user, setUser] = useState(null);
 
-  // Load user from localStorage on app load
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -21,7 +20,6 @@ function App() {
     }
   }, []);
 
-  // Save user to localStorage on user change
   useEffect(() => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
@@ -33,44 +31,61 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Public Landing Page */}
-        <Route path="/" element={
-          user ? (
-            <Navigate to={user.role === 'admin' ? '/admin' : '/employee'} />
-          ) : (
-            <LandingPage />
-          )
-        } />
+        {/* Show Landing Page on / */}
+        <Route path="/" element={<LandingPage />} />
 
-        {/* Login Page */}
+        {/* Login Page only on /login */}
         <Route path="/login" element={<Login setUser={setUser} />} />
 
         {/* Admin Routes */}
-        <Route path="/admin" element={
-          user?.role === 'admin' ? <AdminPanel user={user} setUser={setUser} /> : <Navigate to="/login" />
-        } />
-        <Route path="/admin/leaves" element={
-          user?.role === 'admin' ? <ManageLeaves /> : <Navigate to="/login" />
-        } />
+        <Route
+          path="/admin"
+          element={
+            user?.role === 'admin' ? (
+              <AdminPanel user={user} setUser={setUser} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/admin/leaves"
+          element={
+            user?.role === 'admin' ? <ManageLeaves /> : <Navigate to="/login" />
+          }
+        />
 
         {/* Employee Routes */}
-        <Route path="/employee" element={
-          user?.role === 'employee' ? <EmployeePanel user={user} setUser={setUser} /> : <Navigate to="/login" />
-        } />
-        <Route path="/leave/apply" element={
-          user?.role === 'employee' ? (
-            <ApplyLeave userId={user._id} userName={user.name} />
-          ) : (
-            <Navigate to="/login" />
-          )
-        } />
-        <Route path="/leave/status" element={
-          user?.role === 'employee' ? (
-            <LeaveStatus userId={user._id} />
-          ) : (
-            <Navigate to="/login" />
-          )
-        } />
+        <Route
+          path="/employee"
+          element={
+            user?.role === 'employee' ? (
+              <EmployeePanel user={user} setUser={setUser} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/leave/apply"
+          element={
+            user?.role === 'employee' ? (
+              <ApplyLeave userId={user._id} userName={user.name} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/leave/status"
+          element={
+            user?.role === 'employee' ? (
+              <LeaveStatus userId={user._id} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
       </Routes>
     </Router>
   );

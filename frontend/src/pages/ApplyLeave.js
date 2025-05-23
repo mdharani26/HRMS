@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './ApplyLeave.css'; // Importing CSS file
 
 const ApplyLeave = ({ userId, userName, onLeaveApplied }) => {
   const [reason, setReason] = useState('');
@@ -12,7 +13,6 @@ const ApplyLeave = ({ userId, userName, onLeaveApplied }) => {
       return;
     }
 
-    // Calculate endDate by adding days - 1 to startDate
     const start = new Date(startDate);
     const end = new Date(start);
     end.setDate(start.getDate() + Number(days) - 1);
@@ -21,7 +21,7 @@ const ApplyLeave = ({ userId, userName, onLeaveApplied }) => {
       const res = await axios.post('http://localhost:5000/api/leaves', {
         employeeId: userId,
         employeeName: userName,
-        username: userName, // assuming username = userName here
+        username: userName,
         reason,
         startDate: start.toISOString(),
         endDate: end.toISOString(),
@@ -43,39 +43,40 @@ const ApplyLeave = ({ userId, userName, onLeaveApplied }) => {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Apply for Leave</h2>
+    <div className="apply-leave-container">
+      <h2>Apply for Leave</h2>
 
-      <input
-        className="border p-2 mb-2 w-full"
-        type="date"
-        value={startDate}
-        onChange={e => setStartDate(e.target.value)}
-        placeholder="Start Date"
-      />
+      <div className="form-group">
+        <label>Start Date:</label>
+        <input
+          type="date"
+          value={startDate}
+          onChange={e => setStartDate(e.target.value)}
+        />
+      </div>
 
-      <input
-        className="border p-2 mb-2 w-full"
-        placeholder="Reason"
-        value={reason}
-        onChange={e => setReason(e.target.value)}
-      />
+      <div className="form-group">
+        <label>Reason:</label>
+        <input
+          type="text"
+          placeholder="Enter reason"
+          value={reason}
+          onChange={e => setReason(e.target.value)}
+        />
+      </div>
 
-      <input
-        className="border p-2 mb-4 w-full"
-        placeholder="Number of Days"
-        type="number"
-        min="1"
-        value={days}
-        onChange={e => setDays(e.target.value)}
-      />
+      <div className="form-group">
+        <label>Number of Days:</label>
+        <input
+          type="number"
+          min="1"
+          placeholder="Enter number of days"
+          value={days}
+          onChange={e => setDays(e.target.value)}
+        />
+      </div>
 
-      <button
-        className="bg-indigo-600 text-white px-4 py-2 rounded"
-        onClick={applyLeave}
-      >
-        Submit
-      </button>
+      <button className="submit-btn" onClick={applyLeave}>Submit</button>
     </div>
   );
 };
