@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import adminImage from '../assets/adminlogin.jpg'; // Make sure this path is correct
+import employeeImage from '../assets/userlogin.jpg';
 
 function Login({ setUser }) {
   const [form, setForm] = useState({ 
@@ -195,24 +197,17 @@ function Login({ setUser }) {
         <div className={`login-illustration ${form.userType}`}>
           <div className="illustration-container">
             {form.userType === 'admin' ? (
-              <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                {/* Admin illustration */}
-                <circle cx="250" cy="250" r="200" fill="#f0f0f0"/>
-                <rect x="200" y="150" width="100" height="100" rx="10" fill="#fff"/>
-                <path d="M250,270 L280,320 L220,320 Z" fill="#fff"/>
-                <circle cx="230" cy="190" r="10" fill="#4361ee"/>
-                <circle cx="270" cy="190" r="10" fill="#4361ee"/>
-                <path d="M230,220 Q250,230 270,220" stroke="#4361ee" strokeWidth="5" fill="none"/>
-              </svg>
+              <img 
+                src={adminImage} 
+                alt="Admin Illustration"
+                className="login-image"
+              />
             ) : (
-              <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                {/* Employee illustration */}
-                <circle cx="250" cy="250" r="200" fill="#f0f0f0"/>
-                <circle cx="250" cy="180" r="60" fill="#fff"/>
-                <path d="M250,240 Q280,300 220,300" stroke="#fff" strokeWidth="8" fill="none"/>
-                <rect x="200" y="320" width="100" height="30" rx="5" fill="#fff"/>
-                <path d="M180,150 Q220,120 250,150 Q280,120 320,150" stroke="#fff" strokeWidth="8" fill="none"/>
-              </svg>
+              <img 
+                src={employeeImage} 
+                alt="Employee Illustration"
+                className="login-image"
+              />
             )}
           </div>
         </div>

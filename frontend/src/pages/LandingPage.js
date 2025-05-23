@@ -113,7 +113,7 @@ const LandingPage = () => {
   <div className="container">
     <div className={`section-header animate-on-scroll ${isVisible ? 'visible' : ''}`}>
       <h2 className="section-title">
-        <HiOutlineLightningBolt className="icon" />
+        
         Powerful Features
       </h2>
       <p className="section-subtitle">
@@ -172,7 +172,7 @@ const LandingPage = () => {
             <div className="popup-content">
               <h4>{feature.title}</h4>
               <p>{feature.details}</p>
-              <button className="popup-close">×</button>
+              
             </div>
           </div>
         </div>

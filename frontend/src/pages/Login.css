@@ -48,6 +48,24 @@ body {
   opacity: 0.1;
 }
 
+.login-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
+}
+
+.illustration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-illustration {
+  transition: all 0.3s ease;
+}
+
 .shape-1 {
   width: 300px;
   height: 300px;
@@ -355,6 +373,41 @@ body {
   color: white;
 }
 
+/* Image styling with animation */
+.login-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  animation: pulse 4s infinite ease-in-out; /* Added animation */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.illustration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 1px;
+}
+
+.login-illustration {
+  transition: all 0.3s ease;
+  width: 100%;
+}
 /* Add some responsive styles */
 @media (max-width: 768px) {
   .login-container {

@@ -148,7 +148,7 @@ img {
 }
 
 .apply-btn:hover {
-  background-color: #e01a6f;
+  background-color: white;
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(247, 37, 133, 0.4);
   animation: pulse 0.5s;
