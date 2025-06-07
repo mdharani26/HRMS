@@ -1259,6 +1259,6 @@ function EmployeePanel({ user, setUser }) {
       </footer>
     </motion.div>
   );
-}
+} 
 
 export default EmployeePanel;

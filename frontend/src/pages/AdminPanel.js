@@ -6,6 +6,8 @@ import './AdminPanel.css';
 
 ChartJS.register(...registerables);
 
+
+
 // SVG Icons (updated with more icons)
 const UserIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -353,6 +355,7 @@ function AdminPanel({ user, onLogout }) {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     onLogout();
+    
   };
 
   // Get initials for avatar
@@ -1476,6 +1479,7 @@ function AdminPanel({ user, onLogout }) {
           </ul>
         </nav>
       </aside>
+      
 
       {/* Main Content Area */}
       <main className="admin-main-content">
