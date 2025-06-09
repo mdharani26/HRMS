@@ -67,6 +67,27 @@ const Payroll = mongoose.model('Payroll', payrollSchema);
 
 // Routes
 
+const handleLogout = () => {
+  try {
+    // Clear local storage
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    
+    // Call the onLogout prop function to handle the logout state in the parent component
+    if (typeof onLogout === 'function') {
+      onLogout();
+    } else {
+      console.error('onLogout is not a function');
+      // Fallback in case onLogout isn't properly passed
+      window.location.href = '/login'; // Redirect to login page
+    }
+  } catch (error) {
+    console.error('Error during logout:', error);
+    // Fallback in case of any error
+    window.location.href = '/login'; // Redirect to login page
+  }
+};
+
 // Login
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
