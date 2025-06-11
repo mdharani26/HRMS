@@ -1,120 +1,326 @@
+:root {
+  --primary-color: #3a7bd5;
+  --primary-dark: #2c5fb3;
+  --success-color: #28a745;
+  --pending-color: #ffc107;
+  --error-color: #dc3545;
+  --light-gray: #f8f9fa;
+  --medium-gray: #e9ecef;
+  --dark-gray: #6c757d;
+  --text-color: #212529;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
 .leave-status-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 .leave-status-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--medium-gray);
 }
 
 .leave-status-header h2 {
-  font-size: 24px;
-  color: #333;
+  color: var(--text-color);
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0;
 }
 
-.leave-status-header button {
-  background-color: #2563eb;
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary-color);
   color: white;
-  padding: 8px 14px;
   border: none;
+  padding: 0.6rem 1.2rem;
   border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.2s ease;
 }
 
-.leave-status-header button:hover {
-  background-color: #1e40af;
+.refresh-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--card-shadow);
 }
 
-.leave-status-message,
-.leave-status-error,
-.leave-status-empty {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 16px;
-  color: #555;
+.refresh-btn:active {
+  transform: translateY(0);
 }
 
-.leave-status-error {
-  color: red;
+.refresh-btn.refreshing {
+  background: var(--dark-gray);
+  pointer-events: none;
+}
+
+.refresh-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.refresh-btn:hover svg:not(.spin) {
+  transform: rotate(180deg);
 }
 
 .leave-cards-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
 .leave-card {
-  background-color: #f9f9f9;
-  border: 1px solid #e5e7eb;
+  background: white;
   border-radius: 10px;
-  padding: 16px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  transition: box-shadow 0.3s;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+  border-left: 4px solid var(--primary-color);
 }
 
 .leave-card:hover {
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+  box-shadow: var(--card-shadow-hover);
 }
 
 .leave-card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
 }
 
-.leave-card-header h3 {
-  font-size: 18px;
-  margin-bottom: 4px;
-  color: #111827;
+.date-range {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.date-icon {
+  color: var(--primary-color);
+  margin-top: 0.25rem;
+}
+
+.leave-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
 }
 
 .leave-days {
-  font-size: 14px;
-  color: #6b7280;
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--dark-gray);
 }
 
 .leave-status-badge {
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
   font-weight: 500;
-  text-transform: uppercase;
 }
 
 .leave-status-badge.approved {
-  background-color: #d1fae5;
-  color: #065f46;
-}
-
-.leave-status-badge.rejected {
-  background-color: #fee2e2;
-  color: #991b1b;
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--success-color);
 }
 
 .leave-status-badge.pending {
-  background-color: #fef9c3;
-  color: #92400e;
+  background-color: rgba(255, 193, 7, 0.1);
+  color: var(--pending-color);
+}
+
+.leave-status-badge.rejected {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--error-color);
+}
+
+.status-icon {
+  font-size: 1rem;
 }
 
 .leave-reason {
-  margin-top: 10px;
-  font-size: 15px;
-  color: #374151;
+  margin: 1.25rem 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.reason-icon {
+  color: var(--primary-color);
+  margin-top: 0.2rem;
+}
+
+.leave-reason strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
 }
 
 .leave-reason p {
-  margin-top: 4px;
+  margin: 0;
+  color: var(--text-color);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.leave-footer {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--medium-gray);
 }
 
 .leave-applied-date {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--dark-gray);
+}
+
+.applied-icon {
+  color: var(--dark-gray);
+}
+
+.leave-status-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  gap: 1.5rem;
+}
+
+.loading-spinner {
+  color: var(--primary-color);
+}
+
+.leave-status-loading p {
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.leave-status-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.error-icon {
+  color: var(--error-color);
+}
+
+.leave-status-error p {
+  color: var(--text-color);
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.retry-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retry-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.leave-status-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  gap: 1rem;
+  text-align: center;
+}
+
+.empty-icon {
+  color: var(--dark-gray);
+  opacity: 0.7;
+}
+
+.leave-status-empty h3 {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.leave-status-empty p {
+  margin: 0;
+  color: var(--dark-gray);
+  font-size: 0.95rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .leave-status-container {
+    padding: 1.5rem;
+  }
+  
+  .leave-card {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .leave-status-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .leave-card-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .leave-status-badge {
+    align-self: flex-start;
+  }
 }
